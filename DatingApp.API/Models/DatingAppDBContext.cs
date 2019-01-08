@@ -46,8 +46,6 @@ namespace DatingApp.API.Models
 
             modelBuilder.Entity<Values>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Name).HasMaxLength(10);
             });
         }
