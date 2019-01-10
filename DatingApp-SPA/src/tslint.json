@@ -1,5 +1,4 @@
 {
-  "extends": "../tslint.json",
   "rules": {
     "directive-selector": [
       true,
@@ -10,7 +9,7 @@
     "component-selector": [
       true,
       "element",
-      "hasan",
+      "app",
       "kebab-case"
     ]
   }
