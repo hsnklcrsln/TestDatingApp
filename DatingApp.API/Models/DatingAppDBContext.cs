@@ -15,6 +15,7 @@ namespace DatingApp.API.Models
         {
         }
 
+        public virtual DbSet<Photo> Photo { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Values> Values { get; set; }
 
@@ -29,8 +30,42 @@ namespace DatingApp.API.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Photo>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DateAdded).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasMaxLength(50);
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Photo)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Photo_User");
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
+                entity.Property(e => e.City).HasMaxLength(10);
+
+                entity.Property(e => e.Country).HasMaxLength(10);
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.DateOfBirth).HasColumnType("datetime");
+
+                entity.Property(e => e.Gender).HasMaxLength(10);
+
+                entity.Property(e => e.Interests).HasMaxLength(10);
+
+                entity.Property(e => e.KnownAs).HasMaxLength(10);
+
+                entity.Property(e => e.LastActiveDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LookingFor).HasMaxLength(10);
+
                 entity.Property(e => e.PasswordHash)
                     .IsRequired()
                     .HasMaxLength(128);
